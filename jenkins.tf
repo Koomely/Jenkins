@@ -31,7 +31,7 @@ variable "subnet2_address_space" {
 provider "aws" {
   access_key = "${var.aws_access_key}"
   secret_key = "${var.aws_secret_key}"
-  region     = "us-west-1"
+  region     = "us-east-1"
 }
 
 ##################
@@ -124,15 +124,15 @@ resource "aws_security_group" "jen_test" {
 
 
 resource "aws_instance" "master" {
-	ami = "ami-063aa838bd7631e0b"
+	ami = "ami-0ac019f4fcb7cb7e6"
 	instance_type = "t2.micro"
 	subnet_id = "${aws_subnet.subnet1.id}"
 	vpc_security_group_ids = ["${aws_security_group.jen_test.id}"]
-	#key_name = "${var.key_name}"
+	key_name = "${var.key_name}"
 
     connection {
-        user = "barakk"
-      #  private_key = "${file(var.private_key_path)}"
+      user = "barakk"
+      private_key = "${file(var.private_key_path)}"
     }
 
     provisioner "remote-exec" {
